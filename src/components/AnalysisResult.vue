@@ -41,7 +41,7 @@
 
                     <v-list-tile
                             v-for="error in line.errors"
-                            :key="error.message"
+                            :key="line.number + error.message + error.ruleId"
                     >
                         <v-list-tile-content>
                             <v-list-tile-title>

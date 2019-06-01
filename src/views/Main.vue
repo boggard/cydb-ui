@@ -22,7 +22,7 @@
                                         />
 
                                         <v-btn class="check-btn"
-                                               @click="analyze"
+                                               @click="sendFile"
                                         >
                                             Анализ
                                         </v-btn>
@@ -46,6 +46,7 @@
     import Header from '../components/Header';
     import FileSelect from '../components/FileSelect';
     import AnalysisResult from "@/components/AnalysisResult";
+    import { analyze } from "@/client/analyze-client"
 
     export default {
         name: 'Main',
@@ -64,20 +65,9 @@
             onFileSelected: function (file) {
                 this.file = file;
             },
-            analyze: function () {
-                this.result = [];
-                for (let i = 0; i < 100; i++) {
-                    this.result.push({
-                        number: i,
-                        text: "CREATE TABLE users (",
-                        errors: i % 3 === 0 ? [
-                            {
-                                ruleId: "TABLE-1",
-                                message: "Table without primary key"
-                            }
-                        ] : null
-                    })
-                }
+            sendFile: async function () {
+                const result = await analyze(this.file);
+                this.result = result.data.lines;
             }
         }
     }
