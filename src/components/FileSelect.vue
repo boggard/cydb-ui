@@ -8,8 +8,6 @@
                       v-model="fileName"
                       :label="label"
                       :readonly="true"
-                      :rules="rules"
-                      :error-messages="errorMessages"
                       single-line
                       persistent-hint
                       @click.native="selectFile"/>
@@ -38,10 +36,12 @@
 
             }
         },
+        computed: {
+          icon() {
+              return this.hideIcon ? null : 'attach_file';
+          }
+        },
         methods: {
-            icon: function() {
-                return this.hideIcon ? null : 'attach_file';
-            },
             selectFile: function() {
                 if (this.fileSelectionActivated) {
                     return;
