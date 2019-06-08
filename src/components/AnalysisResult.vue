@@ -3,19 +3,19 @@
         <v-flex xs12 class="statistic">
             <v-badge right color="red" class="item">
                 <template v-slot:badge>
-                    <span>10</span>
-                </template>
-                <v-icon>mdi-bug</v-icon>
-            </v-badge>
-            <v-badge right color="red" class="item">
-                <template v-slot:badge>
-                    <span>10</span>
+                    <span>{{ result.vulnerableCount }}</span>
                 </template>
                 <v-icon>mdi-lock-open</v-icon>
             </v-badge>
             <v-badge right color="red" class="item">
                 <template v-slot:badge>
-                    <span>10</span>
+                    <span>{{ result.bugsCount }}</span>
+                </template>
+                <v-icon>mdi-bug</v-icon>
+            </v-badge>
+            <v-badge right color="red" class="item">
+                <template v-slot:badge>
+                    <span>{{ result.smellsCount }}</span>
                 </template>
                 <v-icon>mdi-radioactive</v-icon>
             </v-badge>
@@ -23,7 +23,7 @@
         <v-card id="result-card">
             <v-list>
                 <v-list-group
-                        v-for="line in result"
+                        v-for="line in result.lines"
                         :key="line.number"
                         :append-icon="line.errors ? $vuetify.icons.expand : null"
                         no-action
@@ -40,8 +40,8 @@
                     </template>
 
                     <v-list-tile
-                            v-for="error in line.errors"
-                            :key="line.number + error.message + error.ruleId"
+                            v-for="(error, index) in line.errors"
+                            :key="line.number + index"
                     >
                         <v-list-tile-content>
                             <v-list-tile-title>

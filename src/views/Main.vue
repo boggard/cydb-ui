@@ -67,7 +67,7 @@
             },
             sendFile: async function () {
                 const result = await analyze(this.file);
-                this.result = result.data.lines;
+                this.result = result.data;
             }
         }
     }
